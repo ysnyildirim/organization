@@ -1,6 +1,6 @@
 package com.yil.organization.controller;
 
-import com.yil.organization.base.ApiHeaders;
+import com.yil.organization.base.ApiConstant;
 import com.yil.organization.base.PageDto;
 import com.yil.organization.dto.CreateOrganizationDto;
 import com.yil.organization.dto.OrganizationDto;
@@ -38,8 +38,8 @@ public class OrganizationController {
 
     @GetMapping
     public ResponseEntity<PageDto<OrganizationDto>> findAll(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "1000") int size) {
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE) int page,
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE_SIZE) int size) {
         try {
             if (page < 0)
                 page = 0;
@@ -78,7 +78,7 @@ public class OrganizationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                  @Valid @RequestBody CreateOrganizationDto dto) {
         try {
             OrganizationType organizationType = null;
@@ -112,7 +112,7 @@ public class OrganizationController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                   @PathVariable Long id,
                                   @Valid @RequestBody CreateOrganizationDto dto) {
         try {
@@ -144,7 +144,7 @@ public class OrganizationController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> delete(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                          @PathVariable Long id) {
         try {
             Organization organization;

@@ -1,6 +1,6 @@
 package com.yil.organization.controller;
 
-import com.yil.organization.base.ApiHeaders;
+import com.yil.organization.base.ApiConstant;
 import com.yil.organization.dto.CreateOrganizationTypeDto;
 import com.yil.organization.dto.OrganizationTypeDto;
 import com.yil.organization.model.OrganizationType;
@@ -61,7 +61,7 @@ public class OrganizationTypeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                  @Valid @RequestBody CreateOrganizationTypeDto dto) {
         try {
             OrganizationType organizationType = new OrganizationType();
@@ -78,7 +78,7 @@ public class OrganizationTypeController {
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                   @PathVariable Long id,
                                   @Valid @RequestBody CreateOrganizationTypeDto dto) {
         try {
@@ -101,7 +101,7 @@ public class OrganizationTypeController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> delete(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
                                          @PathVariable Long id) {
         try {
             OrganizationType organizationType;

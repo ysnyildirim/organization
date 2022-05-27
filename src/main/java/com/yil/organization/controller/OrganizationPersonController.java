@@ -1,6 +1,6 @@
 package com.yil.organization.controller;
 
-import com.yil.organization.base.ApiHeaders;
+import com.yil.organization.base.ApiConstant;
 import com.yil.organization.base.PageDto;
 import com.yil.organization.dto.CreateOrganizationPersonDto;
 import com.yil.organization.dto.OrganizationPersonDto;
@@ -35,8 +35,8 @@ public class OrganizationPersonController {
     @GetMapping
     public ResponseEntity<PageDto<OrganizationPersonDto>> findAll(
             @PathVariable Long organizationId,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "1000") int size) {
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE) int page,
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE_SIZE) int size) {
         try {
             if (page < 0)
                 page = 0;
@@ -77,7 +77,7 @@ public class OrganizationPersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
+    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
                                  @PathVariable Long organizationId,
                                  @Valid @RequestBody CreateOrganizationPersonDto dto) {
         try {
@@ -97,7 +97,7 @@ public class OrganizationPersonController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
                                   @PathVariable Long organizationId,
                                   @PathVariable Long id,
                                   @Valid @RequestBody CreateOrganizationPersonDto dto) {
@@ -122,7 +122,7 @@ public class OrganizationPersonController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> delete(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
+    public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationPersonId,
                                          @PathVariable Long organizationId,
                                          @PathVariable Long id) {
         try {
