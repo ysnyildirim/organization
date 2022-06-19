@@ -7,19 +7,19 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "OrganizationCompany")
+@Table(name = "ORGANIZATION_COMPANY")
 public class OrganizationCompany extends AbstractEntity {
     @Id
-    @SequenceGenerator(name = "OrganizationCompany_Sequence_Generator",
-            sequenceName = "Seq_OrganizationCompany",
+    @SequenceGenerator(name = "ORGANIZATION_COMPANY_SEQUENCE_GENERATOR",
+            sequenceName = "SEQ_ORGANIZATION_COMPANY_ID",
             initialValue = 1,
             allocationSize = 1)
-    @GeneratedValue(generator = "OrganizationCompany_Sequence_Generator")
-    @Column(name = "Id", nullable = false, unique = true)
+    @GeneratedValue(generator = "ORGANIZATION_COMPANY_SEQUENCE_GENERATOR")
+    @Column(name = "ID", nullable = false, unique = true)
     private Long id;
-    @Column(name = "OrganizationId", nullable = false)
+    @Column(name = "ORGANIZATION_ID", nullable = false)
     private Long organizationId;
-    @Column(name = "CompanyId", nullable = false)
+    @Column(name = "COMPANY_ID", nullable = false)
     private Long companyId;
 
 }

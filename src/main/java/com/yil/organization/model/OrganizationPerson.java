@@ -8,22 +8,18 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "OrganizationPerson")
+@Table(name = "ORGANIZATION_PERSON")
 public class OrganizationPerson extends AbstractEntity {
     @Id
-    @SequenceGenerator(name = "OrganizationPerson_Sequence_Generator",
-            sequenceName = "Seq_OrganizationPerson",
+    @SequenceGenerator(name = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR",
+            sequenceName = "SEQ_ORGANIZATION_PERSON_ID",
             initialValue = 1,
             allocationSize = 1)
-    @GeneratedValue(generator = "OrganizationPerson_Sequence_Generator")
-    @Column(name = "Id", nullable = false, unique = true)
+    @GeneratedValue(generator = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR")
+    @Column(name = "ID", nullable = false, unique = true)
     private Long id;
-    @Column(name = "OrganizationId", nullable = false)
+    @Column(name = "ORGANIZATION_ID", nullable = false)
     private Long organizationId;
-    @Column(name = "PersonId", nullable = false)
-    private Long personId;
-    @Column(name = "StartDate")
-    private Date startDate;
-    @Column(name = "EndDate")
-    private Date endDate;
+    @Column(name = "PERSON_ID", nullable = false)
+    private Long personId; 
 }
