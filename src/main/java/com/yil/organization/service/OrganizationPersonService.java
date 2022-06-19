@@ -26,8 +26,6 @@ public class OrganizationPersonService {
         dto.setId(organizationPerson.getId());
         dto.setPersonId(organizationPerson.getPersonId());
         dto.setOrganizationId(organizationPerson.getOrganizationId());
-        dto.setStartDate(organizationPerson.getStartDate());
-        dto.setEndDate(organizationPerson.getEndDate());
         return dto;
     }
 

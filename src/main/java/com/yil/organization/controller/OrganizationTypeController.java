@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "v1/organization-types")
+@RequestMapping(value = "/api/org/v1/organization-types")
 public class OrganizationTypeController {
 
     private final Log logger = LogFactory.getLog(this.getClass());

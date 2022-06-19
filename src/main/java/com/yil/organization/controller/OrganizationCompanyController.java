@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value = "v1/organizations/{organizationId}/companies")
+@RequestMapping(value = "/api/org/v1/organizations/{organizationId}/companies")
 public class OrganizationCompanyController {
 
     private final Log logger = LogFactory.getLog(this.getClass());

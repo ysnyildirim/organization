@@ -15,6 +15,4 @@ public class OrganizationPersonDto {
     private Long id;
     private Long organizationId;
     private Long personId;
-    private Date startDate;
-    private Date endDate;
 }
