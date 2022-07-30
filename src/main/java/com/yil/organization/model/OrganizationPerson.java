@@ -1,6 +1,7 @@
 package com.yil.organization.model;
 
 import com.yil.organization.base.AbstractEntity;
+import com.yil.organization.base.IEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,8 +9,13 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "ORGANIZATION_PERSON")
-public class OrganizationPerson extends AbstractEntity {
+@Table(schema = "ORG",
+        name = "ORGANIZATION_PERSON",
+        indexes = {
+                @Index(name = "IDX_ORGANIZATION_PERSON_PERSON_ID", columnList = "PERSON_ID"),
+                @Index(name = "IDX_ORGANIZATION_PERSON_ORGANIZATION_ID", columnList = "ORGANIZATION_ID")
+        })
+public class OrganizationPerson  implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR",
             sequenceName = "SEQ_ORGANIZATION_PERSON_ID",
@@ -21,5 +27,10 @@ public class OrganizationPerson extends AbstractEntity {
     @Column(name = "ORGANIZATION_ID", nullable = false)
     private Long organizationId;
     @Column(name = "PERSON_ID", nullable = false)
-    private Long personId; 
+    private Long personId;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_TIME")
+    private Date createdTime;
+    @Column(name = "CREATED_USER_ID")
+    private Long createdUserId;
 }

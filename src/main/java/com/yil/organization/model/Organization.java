@@ -1,14 +1,19 @@
 package com.yil.organization.model;
 
-import com.yil.organization.base.AbstractEntity;
+import com.yil.organization.base.IEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "ORGANIZATION")
-public class Organization extends AbstractEntity {
+@Table(schema = "ORG",
+        name = "ORGANIZATION",
+        indexes = {
+                @Index(name = "IDX_ORGANIZATION_ORGANIZATION_TYPE_ID", columnList = "ORGANIZATION_TYPE_ID")
+        })
+public class Organization implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_SEQUENCE_GENERATOR",
             sequenceName = "SEQ_ORGANIZATION_ID",
@@ -21,4 +26,9 @@ public class Organization extends AbstractEntity {
     private Long parentId;
     @Column(name = "ORGANIZATION_TYPE_ID", nullable = false)
     private Long organizationTypeId;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_TIME")
+    private Date createdTime;
+    @Column(name = "CREATED_USER_ID")
+    private Long createdUserId;
 }
