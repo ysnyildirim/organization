@@ -2,6 +2,7 @@ package com.yil.organization.model;
 
 import com.yil.organization.base.IEntity;
 import lombok.Data;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,10 +10,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(schema = "ORG",
-        name = "ORGANIZATION",
-        indexes = {
-                @Index(name = "IDX_ORGANIZATION_ORGANIZATION_TYPE_ID", columnList = "ORGANIZATION_TYPE_ID")
-        })
+        name = "ORGANIZATION")
 public class Organization implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_SEQUENCE_GENERATOR",
@@ -31,4 +29,5 @@ public class Organization implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
+
 }

@@ -1,8 +1,9 @@
 package com.yil.organization.model;
 
-import com.yil.organization.base.AbstractEntity;
 import com.yil.organization.base.IEntity;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +16,7 @@ import java.util.Date;
                 @Index(name = "IDX_ORGANIZATION_PERSON_PERSON_ID", columnList = "PERSON_ID"),
                 @Index(name = "IDX_ORGANIZATION_PERSON_ORGANIZATION_ID", columnList = "ORGANIZATION_ID")
         })
-public class OrganizationPerson  implements IEntity {
+public class OrganizationPerson implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR",
             sequenceName = "SEQ_ORGANIZATION_PERSON_ID",
@@ -28,9 +29,20 @@ public class OrganizationPerson  implements IEntity {
     private Long organizationId;
     @Column(name = "PERSON_ID", nullable = false)
     private Long personId;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FROM_DATE")
+    private Date fromDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "TO_DATE")
+    private Date toDate;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
+    @ColumnDefault("0")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "MANAGER", nullable = false)
+    private boolean manager;
+
 }

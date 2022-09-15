@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrganizationPersonRepository extends JpaRepository<OrganizationPerson, Long> {
     Page<OrganizationPerson> findAllByAndOrganizationIdAndDeletedTimeIsNull(Pageable pageable, Long organizationId);
+
+    boolean existsByOrganizationIdAndPersonIdAndManagerTrue(long organizationId,long personId);
 }

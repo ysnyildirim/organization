@@ -42,4 +42,9 @@ public class OrganizationPersonService {
     public Page<OrganizationPerson> findAllByAndOrganizationIdAndDeletedTimeIsNull(Pageable pageable, Long organizationId) {
         return organizationPersonRepository.findAllByAndOrganizationIdAndDeletedTimeIsNull(pageable, organizationId);
     }
+
+
+    public boolean existsByOrganizationIdAndPersonIdAndManagerTrue(long organizationId,long personId) {
+        return organizationPersonRepository.existsByOrganizationIdAndPersonIdAndManagerTrue(organizationId,personId);
+    }
 }

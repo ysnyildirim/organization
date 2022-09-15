@@ -1,14 +1,13 @@
 package com.yil.organization.service;
 
 import com.yil.organization.dto.OrganizationDto;
+import com.yil.organization.exception.OrganizationNotFoundException;
 import com.yil.organization.model.Organization;
 import com.yil.organization.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 
 @Service
 public class OrganizationService {
@@ -29,17 +28,28 @@ public class OrganizationService {
         return dto;
     }
 
-    public Organization findById(Long id) throws EntityNotFoundException {
-        return organizationRepository.findById(id).orElseThrow(() -> {
-            return new EntityNotFoundException();
-        });
+    public Organization findById(Long id) throws OrganizationNotFoundException {
+        return organizationRepository.findById(id).orElseThrow(OrganizationNotFoundException::new);
+    }
+
+
+    public boolean existsById(Long id) {
+        return organizationRepository.existsById(id);
     }
 
     public Organization save(Organization organization) {
         return organizationRepository.save(organization);
     }
 
-    public Page<Organization> findAllByDeletedTimeIsNull(Pageable pageable) {
-        return organizationRepository.findAllByDeletedTimeIsNull(pageable);
+    public void deleteById(long id) {
+        organizationRepository.deleteById(id);
+    }
+
+    public void delete(Organization entity) {
+        organizationRepository.delete(entity);
+    }
+
+    public Page<Organization> findAll(Pageable pageable) {
+        return organizationRepository.findAll(pageable);
     }
 }
