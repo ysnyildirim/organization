@@ -136,8 +136,6 @@ public class OrganizationCompanyController {
             }
             if (!entity.getCompanyId().equals(organizationId))
                 return ResponseEntity.notFound().build();
-            entity.setDeletedUserId(authenticatedOrganizationCompanyId);
-            entity.setDeletedTime(new Date());
             entity = organizationCompanyService.save(entity);
             return ResponseEntity.ok("Company email deleted.");
         } catch (Exception exception) {

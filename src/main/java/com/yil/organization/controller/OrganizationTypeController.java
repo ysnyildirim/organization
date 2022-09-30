@@ -66,8 +66,6 @@ public class OrganizationTypeController {
         try {
             OrganizationType organizationType = new OrganizationType();
             organizationType.setName(dto.getName());
-            organizationType.setCreatedUserId(authenticatedOrganizationId);
-            organizationType.setCreatedTime(new Date());
             organizationType = organizationTypeService.save(organizationType);
             return ResponseEntity.created(null).build();
         } catch (Exception exception) {
@@ -112,8 +110,6 @@ public class OrganizationTypeController {
             } catch (Exception e) {
                 throw e;
             }
-            organizationType.setDeletedUserId(authenticatedOrganizationId);
-            organizationType.setDeletedTime(new Date());
             organizationTypeService.save(organizationType);
             return ResponseEntity.ok().build();
         } catch (Exception exception) {

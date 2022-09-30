@@ -136,8 +136,6 @@ public class OrganizationPersonController {
             }
             if (!entity.getPersonId().equals(organizationId))
                 return ResponseEntity.notFound().build();
-            entity.setDeletedUserId(authenticatedOrganizationPersonId);
-            entity.setDeletedTime(new Date());
             entity = organizationPersonService.save(entity);
             return ResponseEntity.ok("Person email deleted.");
         } catch (Exception exception) {
