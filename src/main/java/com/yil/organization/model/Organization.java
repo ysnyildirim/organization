@@ -3,6 +3,7 @@ package com.yil.organization.model;
 import com.yil.organization.base.IEntity;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,12 +18,14 @@ public class Organization implements IEntity {
             sequenceName = "SEQ_ORGANIZATION_ID",
             schema = "ORG")
     @GeneratedValue(generator = "ORGANIZATION_SEQUENCE_GENERATOR")
-    @Column(name = "ID", nullable = false, unique = true)
+    @Column(name = "ID")
     private Long id;
     @Column(name = "PARENT_ID")
     private Long parentId;
     @Column(name = "ORGANIZATION_TYPE_ID", nullable = false)
     private Long organizationTypeId;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @ColumnDefault(value = "0")
     @Column(name = "IS_ACTIVE", nullable = false)
     private Boolean isActive;
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,7 +33,6 @@ public class Organization implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-    @ColumnDefault(value = "true")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFY_DATE")
     private Date lastModifyDate;

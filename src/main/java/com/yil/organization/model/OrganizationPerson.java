@@ -38,6 +38,8 @@ public class OrganizationPerson implements IEntity {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "MANAGER", nullable = false)
     private boolean manager;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @ColumnDefault(value = "0")
     @Column(name = "IS_ACTIVE", nullable = false)
     private Boolean isActive;
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,7 +47,6 @@ public class OrganizationPerson implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-    @ColumnDefault(value = "true")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFY_DATE")
     private Date lastModifyDate;

@@ -3,6 +3,7 @@ package com.yil.organization.model;
 import com.yil.organization.base.IEntity;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,6 +22,8 @@ public class OrganizationType implements IEntity {
     private Long id;
     @Column(name = "NAME", nullable = false, length = 100)
     private String name;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @ColumnDefault(value = "0")
     @Column(name = "IS_ACTIVE", nullable = false)
     private Boolean isActive;
     @Temporal(TemporalType.TIMESTAMP)
@@ -28,7 +31,6 @@ public class OrganizationType implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-    @ColumnDefault(value = "true")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFY_DATE")
     private Date lastModifyDate;
