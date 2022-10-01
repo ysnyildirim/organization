@@ -1,121 +1,68 @@
 package com.yil.organization.controller;
 
 import com.yil.organization.base.ApiConstant;
+import com.yil.organization.base.Mapper;
 import com.yil.organization.dto.CreateOrganizationTypeDto;
 import com.yil.organization.dto.OrganizationTypeDto;
+import com.yil.organization.exception.OrganizationTypeNotFoundException;
 import com.yil.organization.model.OrganizationType;
 import com.yil.organization.service.OrganizationTypeService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/org/v1/organization-types")
 public class OrganizationTypeController {
 
-    private final Log logger = LogFactory.getLog(this.getClass());
     private final OrganizationTypeService organizationTypeService;
-
-    @Autowired
-    public OrganizationTypeController(OrganizationTypeService organizationTypeService) {
-        this.organizationTypeService = organizationTypeService;
-    }
+    private final Mapper<OrganizationType, OrganizationTypeDto> mapper = new Mapper<>(OrganizationTypeService::toDto);
 
     @GetMapping
     public ResponseEntity<List<OrganizationTypeDto>> findAll() {
-        try {
-            List<OrganizationType> data = organizationTypeService.findAllByDeletedTimeIsNull();
-            List<OrganizationTypeDto> dtoData = new ArrayList<>();
-            data.forEach(f -> {
-                dtoData.add(OrganizationTypeService.toDto(f));
-            });
-            return ResponseEntity.ok(dtoData);
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+        return ResponseEntity.ok(mapper.map(organizationTypeService.findAll()));
     }
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<OrganizationTypeDto> findById(@PathVariable Long id) {
-        try {
-            OrganizationType organizationType = organizationTypeService.findById(id);
-            OrganizationTypeDto dto = OrganizationTypeService.toDto(organizationType);
-            return ResponseEntity.ok(dto);
-        } catch (Exception exception) {
-
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<OrganizationTypeDto> findById(@PathVariable Long id) throws OrganizationTypeNotFoundException {
+        return ResponseEntity.ok(mapper.map(organizationTypeService.findById(id)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                  @Valid @RequestBody CreateOrganizationTypeDto dto) {
-        try {
-            OrganizationType organizationType = new OrganizationType();
-            organizationType.setName(dto.getName());
-            organizationType = organizationTypeService.save(organizationType);
-            return ResponseEntity.created(null).build();
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+        OrganizationType organizationType = new OrganizationType();
+        organizationType.setName(dto.getName());
+        organizationType.setCreatedTime(new Date());
+        organizationType.setCreatedUserId(authenticatedUserId);
+        organizationType = organizationTypeService.save(organizationType);
+        return ResponseEntity.created(null).build();
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                   @PathVariable Long id,
-                                  @Valid @RequestBody CreateOrganizationTypeDto dto) {
-        try {
-            OrganizationType organizationType;
-            try {
-                organizationType = organizationTypeService.findById(id);
-            } catch (EntityNotFoundException entityNotFoundException) {
-                return ResponseEntity.notFound().build();
-            } catch (Exception e) {
-                throw e;
-            }
-            organizationType.setName(dto.getName());
-            organizationType = organizationTypeService.save(organizationType);
-            return ResponseEntity.ok().build();
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+                                  @Valid @RequestBody CreateOrganizationTypeDto dto) throws OrganizationTypeNotFoundException {
+        OrganizationType organizationType = organizationTypeService.findById(id);
+        organizationType.setName(dto.getName());
+        organizationType = organizationTypeService.save(organizationType);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedOrganizationId,
-                                         @PathVariable Long id) {
-        try {
-            OrganizationType organizationType;
-            try {
-                organizationType = organizationTypeService.findById(id);
-            } catch (EntityNotFoundException entityNotFoundException) {
-                return ResponseEntity.notFound().build();
-            } catch (Exception e) {
-                throw e;
-            }
-            organizationTypeService.save(organizationType);
-            return ResponseEntity.ok().build();
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        organizationTypeService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

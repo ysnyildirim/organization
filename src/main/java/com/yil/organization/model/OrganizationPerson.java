@@ -20,8 +20,7 @@ public class OrganizationPerson implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR",
             sequenceName = "SEQ_ORGANIZATION_PERSON_ID",
-            initialValue = 1,
-            allocationSize = 1)
+            schema = "ORG")
     @GeneratedValue(generator = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR")
     @Column(name = "ID", nullable = false, unique = true)
     private Long id;
@@ -35,14 +34,21 @@ public class OrganizationPerson implements IEntity {
     @Temporal(TemporalType.DATE)
     @Column(name = "TO_DATE")
     private Date toDate;
+    @ColumnDefault("0")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "MANAGER", nullable = false)
+    private boolean manager;
+    @Column(name = "IS_ACTIVE", nullable = false)
+    private Boolean isActive;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-    @ColumnDefault("0")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "MANAGER", nullable = false)
-    private boolean manager;
-
+    @ColumnDefault(value = "true")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LAST_MODIFY_DATE")
+    private Date lastModifyDate;
+    @Column(name = "LAST_MODIFY_USER_ID")
+    private Long lastModifyUserId;
 }

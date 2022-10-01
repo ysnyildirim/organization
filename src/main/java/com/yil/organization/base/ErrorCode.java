@@ -8,6 +8,8 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
+    OrganizationPersonNotFound(5000005, "Organizasyon kişi bulunamadı!"),
+    OrganizationCompanyNotFound(5000004, "Organizasyon şirketi bulunamadı!"),
     YouAreNotOrganization(5000003, "Organizasyon yöneticisi değilsiniz!"),
     OrganizationTypeNotFound(5000002, "Organizasyon türü bulunamadı!"),
     YouDoNotHavePermission(5000001, "Yetkiniz bulunmamaktadır!"),

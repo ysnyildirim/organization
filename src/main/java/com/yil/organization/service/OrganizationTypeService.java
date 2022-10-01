@@ -40,8 +40,12 @@ public class OrganizationTypeService {
         return organizationTypeRepository.findById(id).orElseThrow(OrganizationTypeNotFoundException::new);
     }
 
-    public List<OrganizationType> findAllByDeletedTimeIsNull() {
-        return organizationTypeRepository.findAllByDeletedTimeIsNull();
+    public void deleteById(long id) {
+        organizationTypeRepository.deleteById(id);
+    }
+
+    public List<OrganizationType> findAll() {
+        return organizationTypeRepository.findAll();
     }
 
 }

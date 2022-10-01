@@ -1,6 +1,7 @@
 package com.yil.organization.service;
 
 import com.yil.organization.dto.OrganizationCompanyDto;
+import com.yil.organization.exception.OrganizationCompanyNotFoundException;
 import com.yil.organization.model.OrganizationCompany;
 import com.yil.organization.repository.OrganizationCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,19 @@ public class OrganizationCompanyService {
         });
     }
 
+    public OrganizationCompany findByIdAndAndOrganizationId(Long id, Long organizationId) throws OrganizationCompanyNotFoundException {
+        return organizationCompanyRepository.findByIdAndAndOrganizationId(id, organizationId).orElseThrow(OrganizationCompanyNotFoundException::new);
+    }
+
     public OrganizationCompany save(OrganizationCompany company) {
         return organizationCompanyRepository.save(company);
     }
 
-    public Page<OrganizationCompany> findAllByAndOrganizationIdAndDeletedTimeIsNull(Pageable pageable, Long organizationId) {
-        return organizationCompanyRepository.findAllByAndOrganizationIdAndDeletedTimeIsNull(pageable, organizationId);
+    public void deleteByIdAndOrganizationId(long id, long organizationId) {
+        organizationCompanyRepository.deleteByIdAndOrganizationId(id, organizationId);
+    }
+
+    public Page<OrganizationCompany> findAllByAndOrganizationId(Pageable pageable, Long organizationId) {
+        return organizationCompanyRepository.findAllByAndOrganizationId(pageable, organizationId);
     }
 }

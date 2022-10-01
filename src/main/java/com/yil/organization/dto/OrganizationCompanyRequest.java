@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateOrganizationCompanyDto {
+public class OrganizationCompanyRequest {
     @NotNull
     private Long companyId;
 }
