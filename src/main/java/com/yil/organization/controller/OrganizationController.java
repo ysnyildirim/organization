@@ -68,7 +68,7 @@ public class OrganizationController {
         organization.setCreatedUserId(authenticatedOrganizationId);
         organization.setCreatedTime(new Date());
         organization = organizationService.save(organization);
-        return ResponseEntity.created(null).body(CreateOrganizationResponse.builder().id(organization.getId()).build());
+        return ResponseEntity.status(HttpStatus.CREATED).body(CreateOrganizationResponse.builder().id(organization.getId()).build());
     }
 
     @PutMapping("/{id}")

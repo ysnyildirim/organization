@@ -44,7 +44,7 @@ public class OrganizationTypeController {
         organizationType.setCreatedTime(new Date());
         organizationType.setCreatedUserId(authenticatedUserId);
         organizationType = organizationTypeService.save(organizationType);
-        return ResponseEntity.created(null).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping(value = "/{id}")

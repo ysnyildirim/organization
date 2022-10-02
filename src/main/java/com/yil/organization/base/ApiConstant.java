@@ -1,5 +1,4 @@
 package com.yil.organization.base;
-
 public class ApiConstant {
 
     public static final String AUTHENTICATED_USER_ID = "Authenticated-User-Id";

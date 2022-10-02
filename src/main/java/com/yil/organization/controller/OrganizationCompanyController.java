@@ -62,7 +62,7 @@ public class OrganizationCompanyController {
         entity.setCreatedUserId(authenticatedUserId);
         entity.setCreatedTime(new Date());
         entity = organizationCompanyService.save(entity);
-        return ResponseEntity.created(null).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")

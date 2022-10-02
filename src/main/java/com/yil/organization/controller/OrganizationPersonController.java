@@ -64,7 +64,7 @@ public class OrganizationPersonController {
         entity.setCreatedUserId(authenticatedUserId);
         entity.setCreatedTime(new Date());
         entity = organizationPersonService.save(entity);
-        return ResponseEntity.created(null).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
