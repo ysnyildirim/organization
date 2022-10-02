@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/org/v1/organization-types")
 public class OrganizationTypeController {
-
     private final OrganizationTypeService organizationTypeService;
     private final Mapper<OrganizationType, OrganizationTypeDto> mapper = new Mapper<>(OrganizationTypeService::toDto);
 
@@ -28,7 +27,6 @@ public class OrganizationTypeController {
     public ResponseEntity<List<OrganizationTypeDto>> findAll() {
         return ResponseEntity.ok(mapper.map(organizationTypeService.findAll()));
     }
-
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrganizationTypeDto> findById(@PathVariable Long id) throws OrganizationTypeNotFoundException {
@@ -64,5 +62,4 @@ public class OrganizationTypeController {
         organizationTypeService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }

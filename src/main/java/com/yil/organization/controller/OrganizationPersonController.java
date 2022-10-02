@@ -9,8 +9,6 @@ import com.yil.organization.exception.OrganizationPersonNotFoundException;
 import com.yil.organization.model.OrganizationPerson;
 import com.yil.organization.service.OrganizationPersonService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +23,6 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "/api/org/v1/organizations/{organizationId}/persons")
 public class OrganizationPersonController {
-
     private final OrganizationPersonService organizationPersonService;
     private final Mapper<OrganizationPerson, OrganizationPersonDto> mapper = new Mapper<>(OrganizationPersonService::toDto);
 
@@ -43,7 +40,6 @@ public class OrganizationPersonController {
         return ResponseEntity.ok(mapper.map(organizationPage));
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrganizationPersonDto> findById(
             @PathVariable Long organizationId,
@@ -51,7 +47,6 @@ public class OrganizationPersonController {
         OrganizationPerson organization = organizationPersonService.findByIdAndOrganizationId(id, organizationId);
         return ResponseEntity.ok(mapper.map(organization));
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -66,7 +61,6 @@ public class OrganizationPersonController {
         entity = organizationPersonService.save(entity);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -88,6 +82,4 @@ public class OrganizationPersonController {
         organizationPersonService.deleteByIdAndOrganizationId(id, organizationId);
         return ResponseEntity.ok("Person email deleted.");
     }
-
-
 }

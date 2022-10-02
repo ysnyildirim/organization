@@ -32,7 +32,6 @@ public class OrganizationService {
         return organizationRepository.findById(id).orElseThrow(OrganizationNotFoundException::new);
     }
 
-
     public boolean existsById(Long id) {
         return organizationRepository.existsById(id);
     }

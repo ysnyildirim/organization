@@ -28,12 +28,10 @@ import java.util.Date;
 @RequestMapping(value = "/api/org/v1/organizations")
 @RequiredArgsConstructor
 public class OrganizationController {
-
     private final OrganizationService organizationService;
     private final OrganizationTypeService organizationTypeService;
     private final Mapper<Organization, OrganizationDto> mapper = new Mapper<>(OrganizationService::toDto);
     private final OrganizationPersonService organizationPersonService;
-
 
     @GetMapping
     public ResponseEntity<PageDto<OrganizationDto>> findAll(
@@ -88,7 +86,6 @@ public class OrganizationController {
         organization.setParentId(dto.getParentId());
         organization = organizationService.save(organization);
         return ResponseEntity.ok().build();
-
     }
 
     @DeleteMapping(value = "/{id}")
@@ -102,6 +99,4 @@ public class OrganizationController {
         organizationService.delete(organization);
         return ResponseEntity.ok("Organization deleted.");
     }
-
-
 }

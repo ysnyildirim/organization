@@ -44,7 +44,6 @@ public class OrganizationPersonService {
         return organizationPersonRepository.findByIdAndOrganizationId(id, organizationId).orElseThrow(OrganizationPersonNotFoundException::new);
     }
 
-
     public boolean existsByOrganizationIdAndPersonIdAndManagerTrue(long organizationId, long personId) {
         return organizationPersonRepository.existsByOrganizationIdAndPersonIdAndManagerTrue(organizationId, personId);
     }

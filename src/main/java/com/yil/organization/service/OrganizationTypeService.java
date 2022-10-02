@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class OrganizationTypeService {
-
     private final OrganizationTypeRepository organizationTypeRepository;
 
     @Autowired
@@ -47,5 +46,4 @@ public class OrganizationTypeService {
     public List<OrganizationType> findAll() {
         return organizationTypeRepository.findAll();
     }
-
 }

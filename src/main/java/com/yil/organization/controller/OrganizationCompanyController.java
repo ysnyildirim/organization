@@ -22,7 +22,6 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "/api/org/v1/organizations/{organizationId}/companies")
 public class OrganizationCompanyController {
-
     private final OrganizationCompanyService organizationCompanyService;
 
     @GetMapping
@@ -40,7 +39,6 @@ public class OrganizationCompanyController {
         return ResponseEntity.ok(pageDto);
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrganizationCompanyDto> findById(
             @PathVariable Long organizationId,
@@ -48,7 +46,6 @@ public class OrganizationCompanyController {
         OrganizationCompany organization = organizationCompanyService.findByIdAndAndOrganizationId(id, organizationId);
         OrganizationCompanyDto dto = OrganizationCompanyService.toDto(organization);
         return ResponseEntity.ok(dto);
-
     }
 
     @PostMapping
@@ -86,6 +83,4 @@ public class OrganizationCompanyController {
         organizationCompanyService.deleteByIdAndOrganizationId(id, organizationId);
         return ResponseEntity.ok("Deleted");
     }
-
-
 }

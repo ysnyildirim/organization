@@ -10,7 +10,6 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextStartedEvent> {
-
     public final static long createOrganizationPermissionId = 500;
 
     @Override
@@ -19,6 +18,4 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
         System.out.println(new Date(event.getTimestamp()));
         System.out.println("----------------------");
     }
-
-
 }
