@@ -8,6 +8,7 @@ import com.yil.organization.exception.OrganizationTypeNotFoundException;
 import com.yil.organization.model.OrganizationType;
 import com.yil.organization.service.OrganizationTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class OrganizationTypeController {
     private final OrganizationTypeService organizationTypeService;
     private final Mapper<OrganizationType, OrganizationTypeDto> mapper = new Mapper<>(OrganizationTypeService::toDto);
 
+    @Cacheable("organization-type")
     @GetMapping
     public ResponseEntity<List<OrganizationTypeDto>> findAll() {
         return ResponseEntity.ok(mapper.map(organizationTypeService.findAll()));
