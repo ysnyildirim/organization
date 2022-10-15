@@ -3,7 +3,7 @@ package com.yil.organization.service;
 import com.yil.organization.dto.OrganizationDto;
 import com.yil.organization.exception.OrganizationNotFoundException;
 import com.yil.organization.model.Organization;
-import com.yil.organization.repository.OrganizationRepository;
+import com.yil.organization.repository.OrganizationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrganizationService {
-    private final OrganizationRepository organizationRepository;
+    public static Organization bireysel;
+    public static Organization kurumsal;
+    private final OrganizationDao organizationDao;
 
     @Autowired
-    public OrganizationService(OrganizationRepository organizationRepository) {
-        this.organizationRepository = organizationRepository;
+    public OrganizationService(OrganizationDao organizationDao) {
+        this.organizationDao = organizationDao;
     }
 
     public static OrganizationDto toDto(Organization organization) throws NullPointerException {
@@ -29,26 +31,26 @@ public class OrganizationService {
     }
 
     public Organization findById(Long id) throws OrganizationNotFoundException {
-        return organizationRepository.findById(id).orElseThrow(OrganizationNotFoundException::new);
+        return organizationDao.findById(id).orElseThrow(OrganizationNotFoundException::new);
     }
 
     public boolean existsById(Long id) {
-        return organizationRepository.existsById(id);
+        return organizationDao.existsById(id);
     }
 
     public Organization save(Organization organization) {
-        return organizationRepository.save(organization);
+        return organizationDao.save(organization);
     }
 
     public void deleteById(long id) {
-        organizationRepository.deleteById(id);
+        organizationDao.deleteById(id);
     }
 
     public void delete(Organization entity) {
-        organizationRepository.delete(entity);
+        organizationDao.delete(entity);
     }
 
     public Page<Organization> findAll(Pageable pageable) {
-        return organizationRepository.findAll(pageable);
+        return organizationDao.findAll(pageable);
     }
 }

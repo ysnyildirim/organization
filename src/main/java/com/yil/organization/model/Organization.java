@@ -1,17 +1,27 @@
 package com.yil.organization.model;
 
 import com.yil.organization.base.IEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Data
 @Table(schema = "ORG",
-        name = "ORGANIZATION")
+        name = "ORGANIZATION",
+        indexes = {
+                @Index(name = "IDX_ORGANIZATION_PARENT_ID", columnList = "PARENT_ID"),
+                @Index(name = "IDX_ORGANIZATION_ENABLED", columnList = "ENABLED")
+        })
 public class Organization implements IEntity {
     @Id
     @SequenceGenerator(name = "ORGANIZATION_SEQUENCE_GENERATOR",
@@ -22,12 +32,16 @@ public class Organization implements IEntity {
     private Long id;
     @Column(name = "PARENT_ID")
     private Long parentId;
+    @Column(name = "NAME", nullable = false, length = 1000)
+    private String name;
+    @Column(name = "DESCRIPTION", length = 4000)
+    private String description;
     @Column(name = "ORGANIZATION_TYPE_ID", nullable = false)
     private Long organizationTypeId;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @ColumnDefault(value = "0")
-    @Column(name = "IS_ACTIVE", nullable = false)
-    private Boolean isActive;
+    @Column(name = "ENABLED", nullable = false)
+    private Boolean enabled;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;

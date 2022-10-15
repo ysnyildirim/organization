@@ -3,7 +3,7 @@ package com.yil.organization.service;
 import com.yil.organization.dto.OrganizationTypeDto;
 import com.yil.organization.exception.OrganizationTypeNotFoundException;
 import com.yil.organization.model.OrganizationType;
-import com.yil.organization.repository.OrganizationTypeRepository;
+import com.yil.organization.repository.OrganizationTypeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,14 @@ import java.util.List;
 
 @Service
 public class OrganizationTypeService {
-    private final OrganizationTypeRepository organizationTypeRepository;
+
+    public static OrganizationType gercekKisi;
+    public static OrganizationType tuzelKisi;
+    private final OrganizationTypeDao organizationTypeDao;
 
     @Autowired
-    public OrganizationTypeService(OrganizationTypeRepository organizationTypeRepository) {
-        this.organizationTypeRepository = organizationTypeRepository;
+    public OrganizationTypeService(OrganizationTypeDao organizationTypeDao) {
+        this.organizationTypeDao = organizationTypeDao;
     }
 
     public static OrganizationTypeDto toDto(OrganizationType f) {
@@ -28,22 +31,22 @@ public class OrganizationTypeService {
     }
 
     public boolean existsById(Long id) {
-        return organizationTypeRepository.existsById(id);
+        return organizationTypeDao.existsById(id);
     }
 
     public OrganizationType save(OrganizationType organizationType) {
-        return organizationTypeRepository.save(organizationType);
+        return organizationTypeDao.save(organizationType);
     }
 
     public OrganizationType findById(Long id) throws OrganizationTypeNotFoundException {
-        return organizationTypeRepository.findById(id).orElseThrow(OrganizationTypeNotFoundException::new);
+        return organizationTypeDao.findById(id).orElseThrow(OrganizationTypeNotFoundException::new);
     }
 
     public void deleteById(long id) {
-        organizationTypeRepository.deleteById(id);
+        organizationTypeDao.deleteById(id);
     }
 
     public List<OrganizationType> findAll() {
-        return organizationTypeRepository.findAll();
+        return organizationTypeDao.findAll();
     }
 }

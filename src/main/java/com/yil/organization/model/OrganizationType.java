@@ -1,13 +1,19 @@
 package com.yil.organization.model;
 
 import com.yil.organization.base.IEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Data
 @Table(schema = "ORG",
@@ -24,8 +30,8 @@ public class OrganizationType implements IEntity {
     private String name;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @ColumnDefault(value = "0")
-    @Column(name = "IS_ACTIVE", nullable = false)
-    private Boolean isActive;
+    @Column(name = "REAL", nullable = false)
+    private Boolean real;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;

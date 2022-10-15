@@ -36,8 +36,8 @@ public class OrganizationCompany implements IEntity {
     private Date toDate;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @ColumnDefault(value = "0")
-    @Column(name = "IS_ACTIVE", nullable = false)
-    private Boolean isActive;
+    @Column(name = "ENABLED", nullable = false)
+    private Boolean enabled;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;

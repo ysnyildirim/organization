@@ -11,33 +11,23 @@ import java.util.Date;
 @Entity
 @Data
 @Table(schema = "ORG",
-        name = "ORGANIZATION_PERSON",
+        name = "ORGANIZATION_USER",
         indexes = {
-                @Index(name = "IDX_ORGANIZATION_PERSON_PERSON_ID", columnList = "PERSON_ID"),
-                @Index(name = "IDX_ORGANIZATION_PERSON_ORGANIZATION_ID", columnList = "ORGANIZATION_ID")
+                @Index(name = "IDX_ORGANIZATION_USER_USER_ID", columnList = "USER_ID"),
+                @Index(name = "IDX_ORGANIZATION_USER_ORGANIZATION_ID", columnList = "ORGANIZATION_ID")
         })
-public class OrganizationPerson implements IEntity {
+public class OrganizationUser implements IEntity {
     @Id
-    @SequenceGenerator(name = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR",
-            sequenceName = "SEQ_ORGANIZATION_PERSON_ID",
+    @SequenceGenerator(name = "ORGANIZATION_USER_SEQUENCE_GENERATOR",
+            sequenceName = "SEQ_ORGANIZATION_USER_ID",
             schema = "ORG")
-    @GeneratedValue(generator = "ORGANIZATION_PERSON_SEQUENCE_GENERATOR")
+    @GeneratedValue(generator = "ORGANIZATION_USER_SEQUENCE_GENERATOR")
     @Column(name = "ID", nullable = false, unique = true)
     private Long id;
     @Column(name = "ORGANIZATION_ID", nullable = false)
     private Long organizationId;
-    @Column(name = "PERSON_ID", nullable = false)
-    private Long personId;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FROM_DATE")
-    private Date fromDate;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "TO_DATE")
-    private Date toDate;
-    @ColumnDefault("0")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    @Column(name = "MANAGER", nullable = false)
-    private Boolean manager;
+    @Column(name = "USER_ID", nullable = false)
+    private Long userId;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @ColumnDefault(value = "0")
     @Column(name = "ENABLED", nullable = false)
