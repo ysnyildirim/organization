@@ -3,6 +3,8 @@ package com.yil.organization.config;
 import com.yil.organization.base.ApiError;
 import com.yil.organization.base.ApiException;
 import com.yil.organization.base.ApiFieldError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ import java.util.List;
 
 @RestControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    final Logger logger = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -56,6 +61,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     protected final ResponseEntity<Object> handleApiError(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        logger.error("Hata", ex);
         return new ResponseEntity(body, headers, status);
     }
 

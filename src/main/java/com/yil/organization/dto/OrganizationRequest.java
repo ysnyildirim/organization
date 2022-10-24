@@ -6,16 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PermissionRequest {
-    @NotBlank
+public class OrganizationRequest {
+    private Long parentId;
+    @NotNull
+    private Integer organizationTypeId;
+    @NotNull
     @Length(min = 1, max = 1000)
     private String name;
-    @Length(min = 1, max = 4000)
+    @Length(max = 4000)
     private String description;
 }

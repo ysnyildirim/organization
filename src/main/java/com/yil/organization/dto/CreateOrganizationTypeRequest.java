@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateOrganizationTypeDto {
+public class CreateOrganizationTypeRequest {
     @NotBlank
     @Length(min = 1, max = 100)
     private String name;

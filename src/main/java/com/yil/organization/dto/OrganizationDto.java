@@ -14,5 +14,7 @@ import java.io.Serializable;
 public class OrganizationDto implements Serializable {
     private Long id;
     private Long parentId;
-    private Long organizationTypeId;
+    private Integer organizationTypeId;
+    private String name;
+    private String description;
 }

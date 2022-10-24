@@ -1,11 +1,16 @@
 package com.yil.organization.model;
 
 import com.yil.organization.base.IEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -17,29 +22,34 @@ import java.util.Date;
                 @Index(name = "IDX_ORGANIZATION_USER_ORGANIZATION_ID", columnList = "ORGANIZATION_ID")
         })
 public class OrganizationUser implements IEntity {
-    @Id
-    @SequenceGenerator(name = "ORGANIZATION_USER_SEQUENCE_GENERATOR",
-            sequenceName = "SEQ_ORGANIZATION_USER_ID",
-            schema = "ORG")
-    @GeneratedValue(generator = "ORGANIZATION_USER_SEQUENCE_GENERATOR")
-    @Column(name = "ID", nullable = false, unique = true)
-    private Long id;
-    @Column(name = "ORGANIZATION_ID", nullable = false)
-    private Long organizationId;
-    @Column(name = "USER_ID", nullable = false)
-    private Long userId;
+
+    @EmbeddedId
+    private Pk id;
+    @Comment("Organizasyonun yöneticisi mi ?")
+    @ColumnDefault("0")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    @ColumnDefault(value = "0")
-    @Column(name = "ENABLED", nullable = false)
-    private Boolean enabled;
+    @Column(name = "MANAGER", nullable = false)
+    private Boolean manager;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_TIME")
+    @Column(name = "CREATED_TIME", updatable = false)
     private Date createdTime;
-    @Column(name = "CREATED_USER_ID")
+    @Column(name = "CREATED_USER_ID", updatable = false)
     private Long createdUserId;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFY_DATE")
     private Date lastModifyDate;
     @Column(name = "LAST_MODIFY_USER_ID")
     private Long lastModifyUserId;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Embeddable
+    public static class Pk implements Serializable {
+        @Column(name = "ORGANIZATION_ID", nullable = false)
+        private Long organizationId;
+        @Column(name = "USER_ID", nullable = false)
+        private Long userId;
+    }
 }

@@ -19,8 +19,7 @@ import java.util.Date;
 @Table(schema = "ORG",
         name = "ORGANIZATION",
         indexes = {
-                @Index(name = "IDX_ORGANIZATION_PARENT_ID", columnList = "PARENT_ID"),
-                @Index(name = "IDX_ORGANIZATION_ENABLED", columnList = "ENABLED")
+                @Index(name = "IDX_ORGANIZATION_PARENT_ID", columnList = "PARENT_ID")
         })
 public class Organization implements IEntity {
     @Id
@@ -37,11 +36,7 @@ public class Organization implements IEntity {
     @Column(name = "DESCRIPTION", length = 4000)
     private String description;
     @Column(name = "ORGANIZATION_TYPE_ID", nullable = false)
-    private Long organizationTypeId;
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    @ColumnDefault(value = "0")
-    @Column(name = "ENABLED", nullable = false)
-    private Boolean enabled;
+    private Integer organizationTypeId;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;

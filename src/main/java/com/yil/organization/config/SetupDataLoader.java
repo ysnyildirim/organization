@@ -42,14 +42,14 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
     private void initOrgTypes() {
         OrganizationTypeService.gercekKisi = OrganizationType
                 .builder()
-                .id(1l)
+                .id(1)
                 .name("Gerçek Kişi")
                 .real(true)
                 .build();
         organizationTypeDao.save(OrganizationTypeService.gercekKisi);
         OrganizationTypeService.tuzelKisi = OrganizationType
                 .builder()
-                .id(2l)
+                .id(2)
                 .name("Tüzel Kişi")
                 .real(false)
                 .build();
@@ -59,8 +59,7 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
     private void initDefaultOrg() {
         OrganizationService.bireysel = Organization
                 .builder()
-                .id(1l)
-                .enabled(true)
+                .id(1L)
                 .name("Bireysel Kullanım")
                 .description("Bireysel kullanıcıların organizasyonu")
                 .organizationTypeId(OrganizationTypeService.gercekKisi.getId())
@@ -68,8 +67,7 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
         organizationDao.save(OrganizationService.bireysel);
         OrganizationService.kurumsal = Organization
                 .builder()
-                .id(2l)
-                .enabled(true)
+                .id(2L)
                 .name("Kurumlar")
                 .description("Kurumlar")
                 .organizationTypeId(OrganizationTypeService.tuzelKisi.getId())

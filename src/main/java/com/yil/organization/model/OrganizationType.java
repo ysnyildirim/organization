@@ -25,7 +25,7 @@ public class OrganizationType implements IEntity {
             schema = "ORG")
     @GeneratedValue(generator = "ORGANIZATION_TYPE_SEQUENCE_GENERATOR")
     @Column(name = "ID", nullable = false, unique = true)
-    private Long id;
+    private Integer id;
     @Column(name = "NAME", nullable = false, length = 100)
     private String name;
     @Type(type = "org.hibernate.type.NumericBooleanType")

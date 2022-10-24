@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2022. Tüm hakları Yasin Yıldırım'a aittir.
+ */
+
 package com.yil.organization.dto;
 
 import lombok.AllArgsConstructor;
@@ -11,8 +15,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationTypeDto implements Serializable {
-    private Integer id;
-    private String name;
-    private Boolean real;
+public class OrganizationUserDto implements Serializable {
+    private Long organizationId;
+    private Long userId;
+    private Boolean manager;
 }

@@ -11,14 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-public interface OrganizationPersonRepository extends JpaRepository<OrganizationPerson, Long> {
+public interface OrganizationPersonDao extends JpaRepository<OrganizationPerson, Long> {
     Page<OrganizationPerson> findAllByOrganizationId(Pageable pageable, Long organizationId);
 
-    Optional<OrganizationPerson> findByIdAndOrganizationId(long id, long organizationId);
+    Page<OrganizationPerson> findAllByPersonId(Pageable pageable, Long personId);
 
-    boolean existsByOrganizationIdAndPersonIdAndManagerTrue(long organizationId, long personId);
-
-    @Modifying
-    @Transactional
-    void deleteByIdAndOrganizationId(long id, long organizationId);
+    void deleteAllByOrganizationId(long organizationId);
 }

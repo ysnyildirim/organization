@@ -3,6 +3,7 @@ package com.yil.organization.model;
 import com.yil.organization.base.IEntity;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -28,16 +29,14 @@ public class OrganizationCompany implements IEntity {
     private Long organizationId;
     @Column(name = "COMPANY_ID", nullable = false)
     private Long companyId;
+    @Comment("Organizasyona giriş tarihi")
     @Temporal(TemporalType.DATE)
     @Column(name = "FROM_DATE")
     private Date fromDate;
+    @Comment("Organizasyondan çıkış tarihi")
     @Temporal(TemporalType.DATE)
     @Column(name = "TO_DATE")
     private Date toDate;
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    @ColumnDefault(value = "0")
-    @Column(name = "ENABLED", nullable = false)
-    private Boolean enabled;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATED_TIME")
     private Date createdTime;

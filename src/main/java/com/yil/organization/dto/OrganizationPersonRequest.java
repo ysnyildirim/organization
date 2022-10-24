@@ -6,13 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class CreateOrganizationDto {
-    private Long parentId;
-    @NotNull
-    private Long organizationTypeId;
+public class OrganizationPersonRequest   {
+    private Date fromDate;
+    private Date toDate;
 }

@@ -5,6 +5,8 @@ import com.yil.organization.exception.OrganizationTypeNotFoundException;
 import com.yil.organization.model.OrganizationType;
 import com.yil.organization.repository.OrganizationTypeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,30 +24,32 @@ public class OrganizationTypeService {
     }
 
     public static OrganizationTypeDto toDto(OrganizationType f) {
-        if (f == null)
-            throw new NullPointerException("Organization type is null");
-        OrganizationTypeDto dto = new OrganizationTypeDto();
-        dto.setName(f.getName());
-        dto.setId(f.getId());
-        return dto;
+        return OrganizationTypeDto.builder()
+                .id(f.getId())
+                .name(f.getName())
+                .real(f.getReal())
+                .build();
     }
 
-    public boolean existsById(Long id) {
+    public boolean existsById(Integer id) {
         return organizationTypeDao.existsById(id);
     }
 
+    @CacheEvict(value = "organization-type", allEntries = true)
     public OrganizationType save(OrganizationType organizationType) {
         return organizationTypeDao.save(organizationType);
     }
 
-    public OrganizationType findById(Long id) throws OrganizationTypeNotFoundException {
+    public OrganizationType findById(Integer id) throws OrganizationTypeNotFoundException {
         return organizationTypeDao.findById(id).orElseThrow(OrganizationTypeNotFoundException::new);
     }
 
-    public void deleteById(long id) {
+    @CacheEvict(value = "organization-type", allEntries = true)
+    public void deleteById(Integer id) {
         organizationTypeDao.deleteById(id);
     }
 
+    @Cacheable("organization-type")
     public List<OrganizationType> findAll() {
         return organizationTypeDao.findAll();
     }
