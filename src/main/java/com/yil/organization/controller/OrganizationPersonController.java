@@ -12,6 +12,7 @@ import com.yil.organization.exception.YouAreNotOrganizationManager;
 import com.yil.organization.model.OrganizationPerson;
 import com.yil.organization.service.OrganizationPersonService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/org/v1")
+@Tag(name = "Organizasyon Kişileri")
 public class OrganizationPersonController {
     private final OrganizationPersonService organizationPersonService;
     private final Mapper<OrganizationPerson, OrganizationPersonDto> mapper = new Mapper<>(OrganizationPersonService::toDto);
@@ -68,7 +70,7 @@ public class OrganizationPersonController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity deletePerson(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                        @PathVariable Long id) throws OrganizationNotFoundException, YouAreNotOrganizationManager {
-        organizationPersonService.deleteById(authenticatedUserId,id);
+        organizationPersonService.deleteById(authenticatedUserId, id);
         return ResponseEntity.ok().build();
     }
 }

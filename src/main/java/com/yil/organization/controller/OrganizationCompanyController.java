@@ -11,6 +11,7 @@ import com.yil.organization.exception.YouAreNotOrganizationManager;
 import com.yil.organization.model.OrganizationCompany;
 import com.yil.organization.service.OrganizationCompanyService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/org/v1")
+@Tag(name = "Şirket Organizasyonu")
 public class OrganizationCompanyController {
     private final OrganizationCompanyService organizationCompanyService;
 

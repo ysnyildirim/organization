@@ -8,7 +8,7 @@ import com.yil.organization.base.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.FORBIDDEN)
+@ResponseStatus(HttpStatus.NOT_FOUND)
 @ApiException(code = ErrorCode.OrganizationNotFound)
 public class OrganizationNotFoundException extends Exception {
 }

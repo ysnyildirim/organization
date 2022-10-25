@@ -8,6 +8,7 @@ import com.yil.organization.dto.OrganizationTypeDto;
 import com.yil.organization.exception.OrganizationTypeNotFoundException;
 import com.yil.organization.model.OrganizationType;
 import com.yil.organization.service.OrganizationTypeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/api/org/v1/types")
+@Tag(name = "Organizasyon Türleri")
 public class OrganizationTypeController {
     private final OrganizationTypeService organizationTypeService;
     private final Mapper<OrganizationType, OrganizationTypeDto> mapper = new Mapper<>(OrganizationTypeService::toDto);
